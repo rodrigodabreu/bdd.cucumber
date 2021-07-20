@@ -1,9 +1,7 @@
 import com.rodrigoabreu.bdd.cucumber.Entity.Livro;
-import com.rodrigoabreu.bdd.cucumber.Service.ServicoBiblioteca;
 import com.rodrigoabreu.bdd.cucumber.Entity.Topico;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import com.rodrigoabreu.bdd.cucumber.Service.ServicoBiblioteca;
+import io.cucumber.java.en.*;
 import org.junit.Assert;
 
 import java.util.Optional;
@@ -37,11 +35,21 @@ public class MyStepdefs {
 
     @When("Eu pesquiso o topico mais popular")
     public void euPesquisoOTopicoMaisPopular() {
-      topico = servicoBiblioteca.topicoMaisPopular();
+        topico = servicoBiblioteca.topicoMaisPopular();
     }
 
     @Then("Eu encontro o topico {}")
     public void euEncontroOTopico(Topico topicoEncontrado) {
         Assert.assertEquals(topicoEncontrado, topico.get());
+    }
+
+    @And("Que o total de livros carregados e' {int}")
+    public void queOTotalDeLivrosCarregadosE(int totalDeLivros) {
+        Assert.assertEquals(totalDeLivros, servicoBiblioteca.contagemDosLivros());
+    }
+
+    @But("Eu não encontro o tópico {}")
+    public void euNãoEncontroOTópicoSCIFI(Topico topico) {
+        Assert.assertTrue(servicoBiblioteca.topicoMaisPopular().get() != topico);
     }
 }
