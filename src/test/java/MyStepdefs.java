@@ -52,4 +52,16 @@ public class MyStepdefs {
     public void euNãoEncontroOTópicoSCIFI(Topico topico) {
         Assert.assertTrue(servicoBiblioteca.topicoMaisPopular().get() != topico);
     }
+
+    @When("Eu pesquiso o livro com o {string} e tópico {}")
+    public void euPesquisoOLivroComOTituloETópicoTopico(String titulo, Topico topico) {
+        Livro livro = servicoBiblioteca.pesquisaLivroPorTitulo(titulo);
+        Assert.assertEquals(livro.topico(), topico);
+    }
+
+    @Then("Eu encontro o livro {string}")
+    public void euEncontroOLivroTitulo(String titulo) {
+        Livro livro = servicoBiblioteca.pesquisaLivroPorTitulo(titulo);
+        Assert.assertNotNull(titulo);
+    }
 }
